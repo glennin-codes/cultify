@@ -29,26 +29,29 @@ export const NavBar = () => {
         </Link>
         {/* --menu-items-- */}
         <div className="hidden md2:flex space-x-6 ">
-          <Link to="annalysis" className="hover:text-darkGrayishBlue">
+          {/* <Link to="annalysis" className="hover:text-darkGrayishBlue">
             View Annalysis
-          </Link>
+          </Link> */}
 
-          <Link to="/dashboard" className="hover:text-darkGrayishBlue">
+          {/* <Link to="/dashboard" className="hover:text-darkGrayishBlue">
             Dashboard
-          </Link>
+          </Link> */}
           <div
             className="hover:text-darkGrayishBlue cursor-pointer"
-           onClick={()=>goToHomeAndScroll('about-us', -80)}
+          
           >
-            About Us
+          <Link to='/aboutUs'>
+          About Us
+          </Link>
           </div>
           
-          <div
+          <Link
+          to='/howItWorks'
             className="hover:text-darkGrayishBlue cursor-pointer"
-             onClick={()=>goToHomeAndScroll("how-it-works",-80)}
+             
           >
             How It Works
-          </div>
+          </Link>
           {/* <a href='#'  className="hover:text-darkGrayishBlue">Careers</a>
                   
                   <a href='#'  className="hover:text-darkGrayishBlue">Community</a>

@@ -134,7 +134,7 @@ className="md:hidden left-12 ml-10 p-5 bg-blue-500"
   >
         <div className=" mb-2 p-4">
         <Typography variant="h5" >
-          Welcome User Glen
+          Welcome User Mike 
         </Typography>
       </div>
       <List>

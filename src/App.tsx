@@ -9,6 +9,8 @@ import { Signup } from "./pages/Signup";
 import Annalysis from "./pages/Annlysis";
 import SidebarWithContentSeparator from "./pages/Dashboard";
 import ScrollToTop from "./helpers/scrollToTop";
+import { AboutUs } from "./pages/AboutUs";
+import { HowItworks } from "./pages/HowItWorks";
 
 function App() {
   return (
@@ -20,7 +22,8 @@ function App() {
         <Routes>
           
           <Route path="/" element={<Home />} />
-          <Route path="/annalysis" element={<Annalysis/>} />
+          <Route path="/aboutUs" element={<AboutUs/>} />
+          <Route path="/howItWorks" element={<HowItworks/>} />
           <Route path="/dashboard" element={< SidebarWithContentSeparator/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

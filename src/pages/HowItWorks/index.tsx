@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const HowItworks = () => {
   return (
-    <div id="how-it-works" className="  mb-12 flex flex-col align-center justify-center items-center md:px-6 px-6 w-full">
+    <div id="how-it-works" className="mt-20 py-8 mb-12 flex flex-col align-center justify-center items-center md:px-6 px-6 w-full">
       <h1 className="text-greenMain text-center text-2xl font-bold md:text-3xl mb-12">
         How It Works
       </h1>
@@ -46,6 +46,12 @@ export const HowItworks = () => {
         </div>
        
       </div>
+      <div className="mt-16 bg-gray-300 flex justify-between items-center px-4 py-6 font-medium">
+    <p className="w-1/2 text-lg ml-4">
+        WHAT ARE YOU WAITING FOR? SIGN UP NOW AND REVOLUTIONIZE THE FARMING INDUSTRY WITH ADVANCED AI TECHNOLOGY
+    </p>
+    <a href="/signup" className="bg-green-500 text-white px-6 py-3 rounded-md font-semibold shadow-md hover:bg-green-600 transition duration-300">Get Started</a>
+</div>
     </div>
   );
 };

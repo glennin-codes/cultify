@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -21,6 +22,12 @@ export const Signup = (): JSX.Element => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+//hundlesubmit
+const url:string ="http://localhost:8080/api/auth/signup"
+const res=axios.post(url,{
+  values
+})
+
 
   return (
     <div className="min-h-screen  flex items-center justify-center mt-0  space-y-0 bg-logins bg-no-repeat w-full bg-center bg-cover px-6 ">

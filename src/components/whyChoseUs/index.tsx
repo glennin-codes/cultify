@@ -1,5 +1,5 @@
+import { Card } from "../../components/ui-components/cards"
 import { whyChoseUsConst } from "../../constants"
-import { Card } from "../ui-components/cards"
 
 export const WhyChoseUs=()=>{
     return(

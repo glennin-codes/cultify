@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FaPinterest, FaYoutube, FaTwitter, FaInstagram ,FaFacebook} from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   const [year,setYear] = useState<number | null>(2024);
@@ -55,17 +56,17 @@ console.log({year})
               <a href="#" className="hover:text-greenMain">
                 Home
               </a>
-              <a href="#" className="hover:text-greenMain">
-                Pricing
-              </a>
-              <a href="#" className="hover:text-greenMain">
+              <Link to="howItWorks" className="hover:text-greenMain">
+                How It works
+              </Link>
+              {/* <a href="#" className="hover:text-greenMain">
                 Products
-              </a>
-              <a href="#" className="hover:text-greenMain">
+              </a> */}
+              <Link to="/aboutuUs" className="hover:text-greenMain">
                 About
-              </a>
+              </Link>
             </div>
-            <div className="flex flex-col space-y-3 text-white">
+            {/* <div className="flex flex-col space-y-3 text-white">
               <a href="#" className="hover:text-greenMain">
                 Careers
               </a>
@@ -75,7 +76,7 @@ console.log({year})
               <a href="#" className="hover:text-greenMain">
                 Privacy Policy
               </a>
-            </div>
+            </div> */}
           </div>
 
           {/* <!-- Input Container --> */}

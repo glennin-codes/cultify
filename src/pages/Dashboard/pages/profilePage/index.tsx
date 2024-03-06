@@ -15,7 +15,7 @@ function Profile() {
           />
         </div>
         <div className="flex flex-col  w-full ">
-          <h1 className="md:text-2xl text-xl text-greenMain font-bold">Glen Ayienda</h1>
+          <h1 className="md:text-2xl text-xl text-greenMain font-bold">Mike Nyandiri</h1>
           <h4 className="md:text-l text-md font-bold">
             
             Location bla bla
@@ -27,7 +27,7 @@ function Profile() {
           <h4 className="text-l font-medium">Name</h4>
           <input
             className="py-2 text-center rounded-md border border-gray-300 focus:border-blue-500"
-            value="Glen ayienda"
+            value="Mike Nyandiri"
             type="text"
             name="name"
           />
@@ -36,7 +36,7 @@ function Profile() {
           <h4 className="text-l font-medium">Email</h4>
           <input
             className="py-2 text-center rounded-md border border-gray-300 focus:border-blue-500 "
-            value="Glen ayienda"
+            value="Mike Nyandiri"
             type="text"
             name="name"
           />
@@ -45,7 +45,7 @@ function Profile() {
           <h4 className="text-l font-medium">Location</h4>
           <input
             className="py-2 text-center rounded-md border border-gray-300 focus:border-blue-500"
-            value="Glen ayienda"
+            value="Mike Nyandiri"
             type="text"
             name="name"
           />
@@ -55,7 +55,7 @@ function Profile() {
           <h4 className="text-l font-medium">Phone-Number</h4>
           <input
             className="py-2 text-center rounded-md border border-gray-300 focus:border-blue-500"
-            value="Glen ayienda"
+            value="Mike Nyandiri"
             type="text"
             name="name"
           />

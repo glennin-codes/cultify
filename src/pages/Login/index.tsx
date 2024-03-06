@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { Link } from "react-router-dom";
-import ScrollToTop from "../../helpers/scrollToTop";
 
 export const Login=():JSX.Element=>{
     const [userName, setUserName] = useState('');
