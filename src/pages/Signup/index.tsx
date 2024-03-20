@@ -23,10 +23,7 @@ export const Signup = (): JSX.Element => {
     e.preventDefault();
   };
 //hundlesubmit
-const url:string ="http://localhost:8080/api/auth/signup"
-const res=axios.post(url,{
-  values
-})
+
 
 
   return (

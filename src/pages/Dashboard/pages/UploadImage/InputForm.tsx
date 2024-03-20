@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FaTimes, FaUpload } from "react-icons/fa";
 import SmallCard from "./SmallCard";
+import { functionalStore } from "../../../../hooks/functionalStore";
+import { useNavigate } from "react-router-dom";
 
 function InputForm() {
   const [image, setImage] = useState<File | null>(null);
   const [objectURL, setObjectURL] = useState<string | null>(null); // State to store the object URL
-
+const {upload,isLoading,error,success}=functionalStore()
+const navigate=useNavigate();
   function handleUploadFile(e: React.ChangeEvent<HTMLInputElement>): void {
     const file = e.target.files && e.target.files[0];
     console.log({ file });
@@ -30,8 +33,25 @@ function InputForm() {
     revokeObjectURL();
   }
   const handleUpload = async () => {
-    console.log("clicked");
+    const id=localStorage.getItem('id');
+    console.log("clicked")
+    if(id && image){
+      const formData=new FormData();
+    
+    formData.append('file', image);
+     await upload({formData,id})
+    
+      if(success){
+        navigate('/dashboard')
+      }
+      
+    
+    }else{
+      return 0
+    }
+
   };
+
 
   return (
     <div className="  w-full h-[calc(100vh-2rem)] py-6 px-8 font-Poppins">
@@ -89,7 +109,7 @@ function InputForm() {
         </div>
       </div>
       <div className="relative ">
-        <button className="absolute right-0 px-6 py-2 text-white rounded-full bg-greenMain hover:bg-darkGreen focus:outline-none">
+        <button onClick={handleUpload} className="absolute right-0 px-6 py-2 text-white rounded-full bg-greenMain hover:bg-darkGreen focus:outline-none">
           Upload
         </button>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Typography,
@@ -24,6 +24,8 @@ import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import  InputForm  from "./pages/UploadImage/InputForm";
 import Logout from "./pages/Logout";
 import Profile from "./pages/profilePage";
+import { Result } from "./pages/Result";
+import { functionalStore } from "../../hooks/functionalStore";
 
 type SidebarItem = {
   id: number;
@@ -63,6 +65,12 @@ function SidebarWithContentSeparator() {
   const [open, setOpen] = useState<number>(0);
   const [selectedContent, setSelectedContent] = useState(<InputForm />);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const {upload,isLoading,error,success}=functionalStore();
+  useEffect(()=>{
+    if(success){
+      setSelectedContent(<Result/>)
+    }
+    },[success])
 
   const handleOpen = (value: number) => {
     setOpen((prevOpen) => (prevOpen === value ? 0 : value));
@@ -72,7 +80,10 @@ function SidebarWithContentSeparator() {
     // }
    
 }
+
+
 const renderAccordionContent = (subItem: string) => {
+  
 
   // Render the corresponding component based on the selected subitem
   switch (subItem) {
@@ -80,7 +91,7 @@ const renderAccordionContent = (subItem: string) => {
       setSelectedContent( <InputForm  />);
       break;
     case "Result":
-      setSelectedContent( <InputForm  />);
+      setSelectedContent( <Result  />);
       break;
       default:
         break;

@@ -11,6 +11,7 @@ import SidebarWithContentSeparator from "./pages/Dashboard";
 import ScrollToTop from "./helpers/scrollToTop";
 import { AboutUs } from "./pages/AboutUs";
 import { HowItworks } from "./pages/HowItWorks";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
@@ -24,7 +25,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/aboutUs" element={<AboutUs/>} />
           <Route path="/howItWorks" element={<HowItworks/>} />
-          <Route path="/dashboard" element={< SidebarWithContentSeparator/>} />
+          <Route path="/dashboard" element={<ProtectedRoute>
+            < SidebarWithContentSeparator/>
+          </ProtectedRoute>} />
+          
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>

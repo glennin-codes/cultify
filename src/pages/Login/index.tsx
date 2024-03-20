@@ -1,10 +1,20 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../hooks/UseAuthStore";
+import { Alert } from "@material-tailwind/react";
 
 export const Login=():JSX.Element=>{
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-  
+    const navigate=useNavigate();
+    const{login,error,isLoading,isAuthenticated,resetState}=useAuthStore();
+    useEffect(()=>{
+        resetState();
+    
+      },[]);
+    //  useEffect(()=>{
+        
+    //  },[])
     const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
   
@@ -16,12 +26,29 @@ export const Login=():JSX.Element=>{
       }
     };
     
-    const handleSubmit=(e: FormEvent<HTMLFormElement>)=>{
+    const handleSubmit=async(e: FormEvent<HTMLFormElement>)=>{
+        console.log(userName,password)
         e.preventDefault();
+       
+       try {
+        await  login({email:userName,password});
+        console.log({isAuthenticated});
+        if(isAuthenticated){
+            navigate('/dashboard')
+          }
+       } catch (error) {
+        console.log(error)
+       }
     }
-  
+    useEffect(() => {
+        // Redirect if user is authenticated
+        if (isAuthenticated) {
+          navigate('/dashboard');
+        }
+      }, [isAuthenticated, navigate]);
     return(
         <>
+
         <div className="min-h-screen  flex items-center justify-center mt-0 space-y-0 bg-logins bg-no-repeat w-full bg-center bg-cover px-6 ">
               <div className=" flex flex-col shadow-md  p-8 bg-white w-full max-w-md rounded-md ">
                      <h1 className="text-center text-mainHeading text2xl md:text-3xl font-bold">
@@ -72,7 +99,7 @@ export const Login=():JSX.Element=>{
                              Signin
                         </button>
                     </form> 
-
+{error && <Alert color="red" className="text-center  text-bold  text-white" >{error} </Alert>}
               </div>
 
         </div>

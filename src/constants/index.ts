@@ -1,5 +1,5 @@
 
-export const title:string="Cultify: Predictive Plant Disease Management";
+export const title:string="Cultify: Predictive Plant Disease System";
 
 export const descripto:string="Advanced  application designed to revolutionize plant disease management for farmers.Leveraging machine learning predictions, the system offers personalized treatment recommendations for identified diseases, enhancing precision and efficiency in agricultural practices"
 

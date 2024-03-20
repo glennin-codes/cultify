@@ -23,10 +23,7 @@ export const AboutUs=()=>{
                     technology to predict, prevent, and manage tomato diseases effectively. We strive to provide
                     accessible and actionable insights to farmers, enabling them to safeguard their crops and enhance
                     agricultural productivity</p>
-                    <p className="text-black-900 w-2/3 font-medium">Our mission is to empower farmers with advanced AI
-                    technology to predict, prevent, and manage tomato diseases effectively. We strive to provide
-                    accessible and actionable insights to farmers, enabling them to safeguard their crops and enhance
-                    agricultural productivity</p>
+                    <p className="text-black-900 w-2/3 font-medium">Our ultimate goal is to safeguard global food security, enhance crop yield, and promote sustainable agricultural practices. We strive to be a trusted partner for farmers, researchers, and stakeholders in combating plant diseases and fostering resilient farming communities worldwide.</p>
                     </div>
                     <div className="md:w-1/2 w-full  flex  ">
                     <img src="images/a.jpg" alt="image" className="h-[400px] w-2/3"/>
