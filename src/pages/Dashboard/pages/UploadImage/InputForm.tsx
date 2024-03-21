@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FaTimes, FaUpload } from "react-icons/fa";
+import { FaTimes, FaTruckLoading, FaUpload } from "react-icons/fa";
 import SmallCard from "./SmallCard";
 import { functionalStore } from "../../../../hooks/functionalStore";
 import { useNavigate } from "react-router-dom";
-
+import { Alert } from "@material-tailwind/react";
+import { BiLoaderAlt } from "react-icons/bi";
 function InputForm() {
   const [image, setImage] = useState<File | null>(null);
   const [objectURL, setObjectURL] = useState<string | null>(null); // State to store the object URL
@@ -39,13 +40,7 @@ const navigate=useNavigate();
       const formData=new FormData();
     
     formData.append('file', image);
-     await upload({formData,id})
-    
-      if(success){
-        navigate('/dashboard')
-      }
-      
-    
+     await upload({formData,id})  
     }else{
       return 0
     }
@@ -88,6 +83,17 @@ const navigate=useNavigate();
               </button>
             </div>
           )}
+         {error &&  <Alert
+          color="red"
+          className="text-center  text-bold  text-white" 
+          >
+   {error}
+          </Alert>}
+          {isLoading && (
+  <div className="flex items-center justify-center">
+    <BiLoaderAlt className="animate-spin h-8 w-8 text-green-700" />
+    <div className="ml-2 text-lg text-green-700">Loading...</div>
+  </div>)}
         </div>
 
         <div className=" md:w-1/2 h-full w-full flex flex-col ">
@@ -109,8 +115,14 @@ const navigate=useNavigate();
         </div>
       </div>
       <div className="relative ">
-        <button onClick={handleUpload} className="absolute right-0 px-6 py-2 text-white rounded-full bg-greenMain hover:bg-darkGreen focus:outline-none">
-          Upload
+        <button onClick={handleUpload} disabled={isLoading} className="absolute right-0 px-6 py-2 text-white rounded-full bg-greenMain hover:bg-darkGreen focus:outline-none">
+        {isLoading?(
+        <span className="flex flex-row items-center ">
+<BiLoaderAlt className="animate-spin text-magenta h-6 w-8" />
+<div className="ml-2 text-lg text-green-700">Loading...</div>
+        </span>
+        ):"Upload"
+        }
         </button>
       </div>
     </div>

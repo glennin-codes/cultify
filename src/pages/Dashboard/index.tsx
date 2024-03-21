@@ -65,12 +65,19 @@ function SidebarWithContentSeparator() {
   const [open, setOpen] = useState<number>(0);
   const [selectedContent, setSelectedContent] = useState(<InputForm />);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const {upload,isLoading,error,success}=functionalStore();
-  useEffect(()=>{
-    if(success){
-      setSelectedContent(<Result/>)
+  const { upload, isLoading, error, success, result } = functionalStore();
+
+ 
+  useEffect(() => {
+    if (result) {
+      setSelectedContent(<Result />);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
-    },[success])
+  }, [result]);
+  
 
   const handleOpen = (value: number) => {
     setOpen((prevOpen) => (prevOpen === value ? 0 : value));

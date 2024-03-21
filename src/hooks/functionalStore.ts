@@ -50,7 +50,7 @@ export const functionalStore=create<FunctionalStore>(
                         {
                             isLoading:false,
                             success:message,
-                            result,
+                            result:result[0],
                             disease:prediction,
                         }
                        )
