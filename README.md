@@ -12,8 +12,8 @@
        - Tailwind css for styling and amazing Ui
        - Zustand for State Managment
     ### Dependenciy Api
-- It works dependendly on  the backend server which is built using Typescript ,NodeJS and  Express here is the link  [Cultify Backend ] (https://github.com/glennin-codes/CultifyBackend.git) .That collects data  all users or farmers using the site .
-- Also includes a machine learning Api that is able to detect and predict the disease  of tomatoes based on an image provided by the user.Use Deep learning and trained with a convolutional neural network (CNN) to be able to detect desases .Here is the link to the api [TomatoDeseaseDetectorApi] (https://github.com/glennin-codes/TomatoeDeseaseDetector.git)
+- It works dependendly on  the backend server which is built using Typescript ,NodeJS and  Express here is the link  [Cultify Backend ](https://github.com/glennin-codes/CultifyBackend.git) .That collects data  all users or farmers using the site .
+- Also includes a machine learning Api that is able to detect and predict the disease  of tomatoes based on an image provided by the user.Use Deep learning and trained with a convolutional neural network (CNN) to be able to detect desases .Here is the link to the api [TomatoDeseaseDetectorApi](https://github.com/glennin-codes/TomatoeDeseaseDetector.git)
 
 ## How it works?
 
