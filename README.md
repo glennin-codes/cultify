@@ -1,30 +1,23 @@
-# React + TypeScript + Vite
+# Cultify
+- Cultify is a tomatoe disease detector Api that detects varous diseases in plants,provide Recomended Treatement using Ai.
+- Its very acurate.
+-Provide over 10 diseases   that mostly affect  Tomatoes  detecting with a high  degree of accuracy.
+- This web app isis easy to  use, and the user interface is intuitive. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Technology
+- This is the fronted for the web app.
+    - It is build using;
+       - Typscript to ensure type safety
+       - React to ensure  responsiveness and interactive features.
+       - Tailwind css for styling and amazing Ui
+       - Zustand for State Managment
+    ### Dependenciy Api
+- It works dependendly on  the backend server which is built using Typescript ,NodeJS and  Express here is the link  [Cultify Backend ] (https://github.com/glennin-codes/CultifyBackend.git) .That collects data  all users or farmers using the site .
+- Also includes a machine learning Api that is able to detect and predict the disease  of tomatoes based on an image provided by the user.Use Deep learning and trained with a convolutional neural network (CNN) to be able to detect desases .Here is the link to the api [TomatoDeseaseDetectorApi] (https://github.com/glennin-codes/TomatoeDeseaseDetector.git)
 
-Currently, two official plugins are available:
+## How it works?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- One creates an account and uploads an image of a tomato.
+- The AI will then classify the image into one of the diseases.
+- It's able to search through the internet and provide recommended treatment from online resources based on the disease detected.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
