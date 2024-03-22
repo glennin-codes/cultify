@@ -9,6 +9,13 @@ export const Result= ()=>{
  const {result,disease} =functionalStore();
  console.log(result?.title);
 
+ const link = document.getElementById('link-to');
+ if (result?.url) {
+  link?.classList.remove('disabled');
+  
+ } else {
+  link?.classList.add('disabled');
+ }
 return(
     
    <div className='px-8 '>
@@ -21,7 +28,7 @@ return(
     'predicted disease:',
     (el) => el?.classList.add(CURSOR_CLASS_NAME),
     100,
-    `predicted disease:${disease}`,
+    `predicted disease:${disease? disease : "Nothing found yet,please predict"}`,
     (el) => el?.classList.remove(CURSOR_CLASS_NAME),
     100,
     
@@ -54,7 +61,7 @@ return(
       () => {
           setTypingStatus('Typing...');
         },
-   `${result?.content}`,
+   `${result?.content ? result?.content :"You have not uploaded any image for a detection please do so then navigate to this page" }`,
     
    () => {
       setTypingStatus('Done Typing');
@@ -71,6 +78,12 @@ return(
  <div className='font-medium text-magenta cursor-pointer'
 
  >
+  <a id='link-to' href={result?.title}  className="inline-block bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded-lg
+                  transition duration-300 ease-in-out transform hover:scale-105
+                  focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50
+                  active:bg-blue-800" target="_blank" rel="noopener noreferrer">
+
+  
  <TypeAnimation
   
   splitter={(str) => str.split(/(?= )/)} // 'Lorem ipsum dolor' -> ['Lorem', ' ipsum', ' dolor']
@@ -78,9 +91,9 @@ return(
       () => {
           setTypingStatus('Typing...');
         },
-   `${result?.title}`,
+   `${result?.title ? result?.title :"You have not uploaded any image for a detection please do so then navigate to this page"}`,
    100,
-   `${result?.url}`,
+   `${result?.url ?"View on the web  for more information about treatment":"You have not uploaded any image for a detection please do so then navigate to this page"}`,
    100,
     
    () => {
@@ -93,6 +106,16 @@ return(
   style={{ fontSize: '1em',whiteSpace: 'pre-line', display: 'block', minHeight: '200px' }}
  
 />
+<style >{`
+  .disabled{
+    color: gray; 
+    pointer-events: none; 
+    cursor: not-allowed;
+    text-decoration: none; 
+    opacity:0.5
+  }
+    `}</style>
+</a>
  </div>
  </div>
 
