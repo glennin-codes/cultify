@@ -52,6 +52,7 @@ export const functionalStore=create<FunctionalStore>(
                             success:message,
                             result:result[0],
                             disease:prediction,
+                            error:''
                         }
                        )
                      }
