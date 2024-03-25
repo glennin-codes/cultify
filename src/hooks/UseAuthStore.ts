@@ -7,10 +7,12 @@ type User = {
   id: string;
 };
 
-type newUser = {
+export type newUser = {
   email: string;
-  name: string;
+phoneNumber:string;
   password:string;
+  firstName:string;
+  lastName:string
 };
 
 interface Values {
@@ -156,14 +158,14 @@ console.log(res.data)
           "http://localhost:8080/api/auth/signup",
           newUser
         );
-        const { message } = res.data;
+        const { message, } = res.data;
 console.log(res.data);
 console.log(message);
         if (res.status == 201 ) {
           set({
             isAuthenticated: false,
             user: {
-              name: newUser.name,
+              name: newUser.firstName,
               email: newUser.email,
               id: "",
             },

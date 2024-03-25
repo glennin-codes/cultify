@@ -99,7 +99,7 @@ export const Login=():JSX.Element=>{
                              Signin
                         </button>
                     </form> 
-{error && <Alert color="red" className="text-center  text-bold  text-white" >{error} </Alert>}
+{error && <Alert color="red" className="text-center  mt-6 text-bold  text-white" >{error} </Alert>}
               </div>
 
         </div>
