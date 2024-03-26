@@ -12,6 +12,7 @@ import ScrollToTop from "./helpers/scrollToTop";
 import { AboutUs } from "./pages/AboutUs";
 import { HowItworks } from "./pages/HowItWorks";
 import ProtectedRoute from "./ProtectedRoute";
+import VerificationPage from "./pages/Verification";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/verifying" element={<VerificationPage />} />
         </Routes>
         </ScrollToTop>
         <Footer />

@@ -161,7 +161,8 @@ console.log(res.data)
         const { message, } = res.data;
 console.log(res.data);
 console.log(message);
-        if (res.status == 201 ) {
+
+        if (res.status === 200 ){
           set({
             isAuthenticated: false,
             user: {
@@ -170,7 +171,7 @@ console.log(message);
               id: "",
             },
             error: "",
-            success: String(message),
+            success: message,
             isLoading: false,
           });
         }

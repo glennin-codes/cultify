@@ -5,11 +5,16 @@ import { useAuthStore,newUser } from "../../hooks/UseAuthStore";
 import { Formik, Form, Field, ErrorMessage, FieldInputProps, FieldMetaProps } from 'formik';
 import * as Yup from 'yup';
 import { Alert } from "@material-tailwind/react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { AlertSignup } from "../../components/Alert";
+
+
 
 export const Signup = (): JSX.Element => {
 
-const {signUp}=useAuthStore();
-  
+const {signUp,success,error}=useAuthStore();
+const [showPassword, setShowPassword] = useState<boolean>(false);
+ 
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string().trim().required('First Name is required'),
     lastName: Yup.string().trim().required('Last Name is required'),
@@ -21,7 +26,7 @@ const {signUp}=useAuthStore();
 
   const handleSubmit =async (values:newUser) => {
   console.log({values})
-  alert({values});
+
     await signUp(values)
   };
 //hundlesubmit
@@ -141,6 +146,7 @@ interface MyFormValues {
              onBlur={field.onBlur}
               className={`w-full px-4 py-2 ${meta.error && meta.touched ? 'border-red-500': ''} border rounded-md focus:outline-none focus:border-blue-600 border-slate-300 hover:border-slate-400`}
             />
+             
              {meta.error && meta.touched &&(
                  <div className="text-sm text-red-500 " >
                {  meta.error}
@@ -160,12 +166,21 @@ interface MyFormValues {
             >
               Enter a password
             </label>
-
+            <div className="relative">
             <input
               {...field}
-              type="password"
+            
+              type={showPassword ? "text" : "password"}
               className={`w-full px-4 py-2 ${meta.error && meta.touched ? 'border-red-500': ''} border rounded-md focus:outline-none focus:border-blue-600 border-slate-300 hover:border-slate-400`}
             />
+              <button
+                  type="button"
+                  className="absolute top-1/2 transform -translate-y-1/2 right-4 text-green-500 bg-transparent border-0 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                </button>
+                </div>
               {meta.error && meta.touched &&(
                  <div className="text-sm text-red-500 " >
                {  meta.error}
@@ -192,7 +207,10 @@ interface MyFormValues {
         </Form>
           )}
         </Formik>
-      
+        {success && (
+        <AlertSignup signupResult={success} oppener={true} />
+      )}
+      {error && <AlertSignup signupResult={error} oppener={Boolean(error)} />}
       </div>
     </div>
   );
