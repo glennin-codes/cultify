@@ -50,10 +50,10 @@ export const data = {
 export default function Annalysis() {
   return (
     <>
-    <div  className="flex m-0 p-0 mt-20 mb-16 space-x-0  border border-solid border-blue font-Montserrat md:flex-row  gap-4 w-full h-full  px-6 py-3 border-none shadow-none  flex-col">
+    <div  className="flex m-0 p-0  mb-16 space-x-0  border border-solid border-blue font-Montserrat md:flex-row  gap-4 w-full h-full  px-6 py-3 border-none shadow-none  flex-col">
       <div
         
-        className="flex flex-col   gap-4 w-full md:w-1/2 rounded-none md:flex-row  items-center mt-4"
+        className="flex flex-col   gap-4 w-full md:w-1/2 rounded-none md:flex-row  items-center "
       >
         <div className=" rounded-lg bg-cardBGColor  p-5 text-white-500">
           <div className="flex flex-row   items-center justify-start gap-4 mb-4">

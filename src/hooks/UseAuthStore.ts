@@ -303,9 +303,7 @@ console.log(res.status)
       }
     },
     logout: () => {
-      set({ isAuthenticated: false, user: null });
-
-      
+      set({ ...initialAuthState });
         localStorage.removeItem("id");
         localStorage.removeItem("name");
         localStorage.removeItem("token");

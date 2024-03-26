@@ -5,6 +5,7 @@ export default withMT({
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    
   ],
   theme: {
     screens:{
@@ -55,6 +56,8 @@ export default withMT({
     },
   },
 
-  plugins: [],
+  plugins: [
+    
+  ],
 })
 

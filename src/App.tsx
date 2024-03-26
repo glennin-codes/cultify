@@ -6,7 +6,7 @@ import { Route, BrowserRouter as Router, Routes, } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
-import Annalysis from "./pages/Annlysis";
+import Annalysis from "./pages/Annalysis";
 import SidebarWithContentSeparator from "./pages/Dashboard";
 import ScrollToTop from "./helpers/scrollToTop";
 import { AboutUs } from "./pages/AboutUs";
