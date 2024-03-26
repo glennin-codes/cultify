@@ -230,7 +230,7 @@ console.log(message);
           "http://localhost:8080/api/auth/verify",
          verify
         );
-        const { id, name,message } = res.data;
+        const { id, name,message ,token} = res.data;
 
         if (res.status == 200 ) {
           set({
@@ -247,6 +247,7 @@ console.log(message);
       
             localStorage.setItem("id", id);
             localStorage.setItem("name", name);
+            localStorage.setItem("token", token);
           
         }
         
