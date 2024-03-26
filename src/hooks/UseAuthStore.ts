@@ -231,7 +231,7 @@ console.log(message);
          verify
         );
         const { id, name,message ,token} = res.data;
-
+console.log(res.status)
         if (res.status == 200 ) {
           set({
             isAuthenticated: true,
@@ -306,6 +306,7 @@ console.log(message);
       
         localStorage.removeItem("id");
         localStorage.removeItem("name");
+        localStorage.removeItem("token");
       
     },
 resetState:()=>{
