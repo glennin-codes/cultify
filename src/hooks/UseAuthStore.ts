@@ -83,7 +83,7 @@ export const useAuthStore = create<AuthState>((set) => {
           values
         );
 
-        const { id, name ,token} = res.data;
+        const { id, name ,role,token} = res.data;
 console.log(res.data)
         if (res.status === 200 ) {
           set({
@@ -101,6 +101,7 @@ console.log(res.data)
             localStorage.setItem("id", id);
             localStorage.setItem("name", name);
             localStorage.setItem("token", token);
+            localStorage.setItem("role", role);
            
             
           
@@ -230,7 +231,7 @@ console.log(message);
           "http://localhost:8080/api/auth/verify",
          verify
         );
-        const { id, name,message ,token} = res.data;
+        const { id, name,message,role ,token} = res.data;
 console.log(res.status)
         if (res.status == 200 ) {
           set({
@@ -248,6 +249,7 @@ console.log(res.status)
             localStorage.setItem("id", id);
             localStorage.setItem("name", name);
             localStorage.setItem("token", token);
+            localStorage.setItem("role", role);
           
         }
         
@@ -307,6 +309,7 @@ console.log(res.status)
         localStorage.removeItem("id");
         localStorage.removeItem("name");
         localStorage.removeItem("token");
+        localStorage.removeItem("role");
       
     },
 resetState:()=>{

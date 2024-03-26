@@ -40,6 +40,12 @@ useEffect(() => {
   fetchData();
 }, []);
 
+useEffect(()=>{
+  if (success) {
+    navigate('/dashboard');
+}
+
+},[success])
 
   return (
 
