@@ -63,7 +63,7 @@ export const NavBar = () => {
             to="/login"
             className="hidden p-3 px-6 pt-2 text-white bg-greenMain rounded-full baseline hover:bg-brightRedLight md:block"
           >
-            Login
+            Dashboard  
           </Link>
         </div>
         {/* <!-- Hamburger Icon --> */}

@@ -10,6 +10,7 @@ type Result={
     url:string,
     content:string
 }
+
  interface FunctionalStore{
     upload:(values:uploads)=>Promise<void>;
     isLoading: boolean;
@@ -17,6 +18,7 @@ type Result={
     success: string ;
     result:Result | null ;
     disease:string;
+    
 
     
 }
@@ -107,7 +109,8 @@ export const functionalStore=create<FunctionalStore>(
                 set({ isLoading: false });
               }
                     
-            }
+            },
+          
 
           }
         

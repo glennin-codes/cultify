@@ -84,10 +84,10 @@ function SidebarWithContentSeparator() {
   const [open, setOpen] = useState<number>(0);
   const [selectedContent, setSelectedContent] = useState(<InputForm />);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const { upload, isLoading, error, success, result } = functionalStore();
+  const {  result } = functionalStore();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { logout } = useAuthStore();
+  const { logout ,loadLocalStorage,activeUser} = useAuthStore();
   const handleLogout = () => {
     // Perform logout logic here
     console.log("Logging out...");
@@ -156,16 +156,18 @@ function SidebarWithContentSeparator() {
       default:
         break;
     }
+    if (isMobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
   };
-  const [userRole, setUserRole] = useState('');
+
 
   // Effect to get the user role from localStorage
   useEffect(() => {
-    const role = localStorage.getItem('role');
-    setUserRole(role ?? " ");
+    loadLocalStorage()
   }, []);
 
-  console.log(userRole);
+  console.log(activeUser);
 
   return (
     <div className="flex md2:mt-20  mt-24 mb-10">
@@ -195,7 +197,7 @@ function SidebarWithContentSeparator() {
         } md2:translate-x-0   transition-transform  duration-300 ease-in-out md2:duration-0 md2:ease-in-out h-[calc(100vh-2rem)] bg-white w-full max-w-[20rem] p-4  fixed md2:static  mt-5`}
       >
         <div className=" mb-2 p-4">
-          <Typography variant="h5">Welcome User Mike</Typography>
+          <Typography variant="h5">Welcome {activeUser?.role==="admin"?'Admin':'User'} {activeUser?.name} </Typography>
         </div>
         <List>
           {accordionItems.map((item) => (
@@ -248,7 +250,7 @@ function SidebarWithContentSeparator() {
           <hr className="my-2 border-blue-gray-50 " />
           {nonAccordionItems.map((item) => (
            
-             (userRole !== 'admin' && (item.label === 'Users')) ? null :
+             ( activeUser?.role !== 'admin' && (item.label === 'Users')) ? null :
             <ListItem
               className=""
               onClick={() => handleItemClick(item.label)}

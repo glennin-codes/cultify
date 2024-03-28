@@ -1,7 +1,9 @@
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { Card, CardFooter, Typography,Button, Tooltip, IconButton } from "@material-tailwind/react";
+import { UseGetUserStore } from "../../../../hooks/getUsersHooks";
+import { useEffect } from "react";
 const TABLE_HEAD = ["Name", "PhoneNumber", "Date", "PredictionCount"," "];
- 
+
 const TABLE_ROWS = [
   {
     name: "John Michael",
@@ -39,6 +41,12 @@ const isLast = (index:number)=>{
 }
 
  function AllUsers() {
+  const { getUsers, Users, isLoading, error } = UseGetUserStore();
+
+  useEffect(() => {
+    getUsers(); // This will be triggered when the component mounts
+  }, []); // Empty dependency array means it will only run once, similar to componentDidMount
+console.log(Users)
   return (
     <div className="h-full w-screen  md:w-full  py-6 px-8 overflow-x-auto">
     

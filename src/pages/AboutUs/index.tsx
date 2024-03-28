@@ -5,7 +5,7 @@ export const AboutUs=()=>{
 
   
     return(
-       <div className=" h-full  flex flex-col justify-center items-center   mt-20  md:px-12 px-4 py-8">
+       <div className=" h-full w-full flex flex-col justify-center items-center  mt-20  md:px-12 px-4 py-8">
     <section
     className="justify-center flex flex-col items-center text-gray-500  "
     >
@@ -15,8 +15,8 @@ export const AboutUs=()=>{
              farming industry with Ai
            </h4> 
         </section>
-        <div className="w-full md:mt-24 mt-4 flex flex-col gap-12 mb-6 px-8">
-            <section className="w-full flex  md2:flex-row flex-col ">
+        <div className="w-full md:mt-24 mt-4 flex flex-col  gap-12 mb-6 px-8">
+            <section className="w-full flex justify-center items-center   md2:flex-row flex-col ">
                 <div className="flex flex-col md2:w-1/2 w-full gap-3">
                     <h2 className="md2:text-3xl  text-2xl font-semibold text-gray-500 "> Our Mission</h2>
                 <p className="text-black-900 md:w-2/3 w-full font-medium">Our mission is to empower farmers with advanced AI
@@ -25,7 +25,7 @@ export const AboutUs=()=>{
                     agricultural productivity</p>
                     <p className="text-black-900 w-2/3 font-medium">Our ultimate goal is to safeguard global food security, enhance crop yield, and promote sustainable agricultural practices. We strive to be a trusted partner for farmers, researchers, and stakeholders in combating plant diseases and fostering resilient farming communities worldwide.</p>
                     </div>
-                    <div className="md:w-1/2 w-full  flex  ">
+                    <div className="md:w-1/2 w-full  flex">
                     <img src="images/a.jpg" alt="image" className="h-[400px] w-2/3"/>
 
                  </div>
