@@ -193,7 +193,7 @@ function AllUsers() {
                                 color="white"
                                 className="font-normal opacity-80"
                               >
-                                No prediction made by userso far
+                                No prediction made by user so far
                               </Typography>
                             )}
                           </div>
