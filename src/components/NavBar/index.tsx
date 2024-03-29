@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Path, useNavigate } from "react-router-dom";
 
 import { useLocation } from 'react-router-dom';
 import { scrollToElement } from "../../helpers/scroll";
+import { useAuthStore } from "../../hooks/UseAuthStore";
 
 export const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
+const{ loadLocalStorage,activeUser}=useAuthStore()
   const toggleMenu = (): void => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -17,6 +18,12 @@ export const NavBar = () => {
       scrollToElement(elementName,offsetTop);
     },  0);
   };
+   // Effect to get the user role from localStorage
+   useEffect(() => {
+    loadLocalStorage()
+  }, []);
+
+ 
  
 
   return (
@@ -60,10 +67,10 @@ export const NavBar = () => {
         {/* --button-- */}
         <div className="hidden md2:flex space-x-6">
           <Link
-            to="/login"
+            to={activeUser?.token ? "/dashboard" : "/login"}
             className="hidden p-3 px-6 pt-2 text-white bg-greenMain rounded-full baseline hover:bg-brightRedLight md:block"
           >
-            Dashboard  
+            {activeUser?.token ? "Dashboard ":"Login"}
           </Link>
         </div>
         {/* <!-- Hamburger Icon --> */}

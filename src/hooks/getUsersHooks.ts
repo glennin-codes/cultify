@@ -34,16 +34,19 @@ export const UseGetUserStore: UseBoundStore<StoreApi<GetUserState>>=create<GetUs
                 set({
                     isLoading:false,
                     success: "users fetched succesfuly",
-                    Users:data
+                    Users:data,
+                    error:''
                 });
                }
                 
 
             } catch (error:any) {
+                console.error(error)
                 set({
                     isLoading:false
                 });
                 if(error?.response){
+
                     const status = error?.response?.status as number;
                     const message = error.response?.data?.error as string;
                     if(status===401){
