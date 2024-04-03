@@ -10,9 +10,26 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useEffect, useState } from "react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-interface DiseaseData {
-  [diseaseName: string]: number;
+interface ChartData {
+  labels: string[];
+  plugins?: {
+    legend?: {
+      position: string;
+    };
+  };
+  title?: {
+    display: boolean;
+    text: string;
+  };
+  datasets: {
+    label: string;
+    data: number[];
+    backgroundColor: string[];
+    borderColor: string[];
+    borderWidth: number;
+  }[];
 }
+
 
 interface AnalysisData {
   [yearMonth: string]: {
@@ -26,7 +43,7 @@ interface AnalysisData {
 
 export default function Annalysis() {
   const [chartDataData,setChartDataData]=useState<AnalysisData>({})
-  const [chartData, setChartData] = useState({
+  const [chartData, setChartData] = useState<ChartData>({
     labels: [],
     plugins: {
       legend: {
