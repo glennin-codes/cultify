@@ -67,17 +67,17 @@ export default function Annalysis() {
   
   )
 
-  useEffect(() => {
-    fetch("http://localhost:8080/api/annalysis")
-      .then((response) => response.json())
-      .then((data: AnalysisData) => {
-        // Store the fetched data
-        setChartDataData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:8080/api/annalysis")
+  //     .then((response) => response.json())
+  //     .then((data: AnalysisData) => {
+  //       // Store the fetched data
+  //       setChartDataData(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, []);
 
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -136,6 +136,26 @@ export default function Annalysis() {
       .then((data: AnalysisData) => {
         // Store the fetched data
         setChartDataData(data);
+             // Extract present year and month
+      const presentDate = new Date();
+      const presentYear = presentDate.getFullYear().toString();
+      const presentMonth = (presentDate.getMonth() + 1).toString().padStart(2, "0");
+      
+      // Check if present year-month is available in the dataset
+      const presentYearMonth = presentYear + "-" + presentMonth;
+      if (data[presentYearMonth]) {
+        setSelectedYear(presentYear);
+        setSelectedMonth(presentMonth);
+       
+      } else {
+        // If present year-month is not available, select the latest year and month from the dataset
+        const latestYear = Object.keys(data).sort().reverse()[0].split("-")[0];
+        const latestMonth = Object.keys(data[latestYear]).sort().reverse()[0];
+        setSelectedYear(latestYear);
+        setSelectedMonth(latestMonth);
+     
+      }
+   
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -161,8 +181,13 @@ export default function Annalysis() {
 
       setYears(Array.from(yearsSet).sort());
       setMonths(Array.from(monthsSet).sort());
+
     }
   }, [chartDataData]);
+
+  useEffect(() => {
+    filterChartData();
+  }, [selectedYear, selectedMonth]);
   return (
     <>
     <div  className="flex m-0 p-0  mb-16 space-x-0  border border-solid border-blue font-Montserrat md:flex-row  gap-4 w-full h-full  px-6 py-3 border-none shadow-none  flex-col">
@@ -203,26 +228,46 @@ export default function Annalysis() {
            grid place-items-center px-2"
       >
         <div>desease data </div>
-        <div>
-        <select value={selectedYear} onChange={(e) => handleChangeYear(e.target.value)}>
-          <option value="">Select Year</option>
-          {years.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-        <select value={selectedMonth} onChange={(e) => handleChangeMonth(e.target.value)}>
-          <option value="">Select Month</option>
-          {months.map((month) => (
-            <option key={month} value={month}>
-              {month}
-            </option>
-          ))}
-        </select>
-        <button onClick={filterChartData}>Apply Filter</button>
-      </div>
-        <Pie data={chartData} />;
+        <div className="flex flex-col gap-4 w-full md:justify-between rounded-none md:flex-row items-center ">
+
+  <select
+    className="px-3 py-1 mr-4 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+    value={selectedYear}
+    onChange={(e) => handleChangeYear(e.target.value)}
+  >
+    <option value="">Select Year</option>
+    {years.map((year) => (
+      <option key={year} value={year}>
+        {year}
+      </option>
+    ))}
+  </select>
+  <select
+    className="px-3 py-1 mr-4 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+    value={selectedMonth}
+    onChange={(e) => handleChangeMonth(e.target.value)}
+  >
+    <option value="">Select Month</option>
+    {months.map((month) => (
+      <option key={month} value={month}>
+        {month}
+      </option>
+    ))}
+  </select>
+  <button
+    className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+    onClick={filterChartData}
+  >
+    Apply Filter
+  </button>
+</div>
+<div className=" w-full grid  place-items-center px-2">
+     {chartData.labels.length > 0 ? (
+            <Pie data={chartData} />
+          ) : (
+            <p>No data available</p>
+          )}
+          </div>
       </CardBody>
     </div>
     </>
