@@ -7,47 +7,100 @@ import {
 import { Pie } from "react-chartjs-2";
 import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { useEffect, useState } from "react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+interface DiseaseData {
+  [diseaseName: string]: number;
+}
 
-export const data = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-  plugins: {
-    legend: {
-      position: "top",
-    },
-  },
-  title: {
-    display: true,
-    text: "Chart.js Pie Chart",
-  },
+interface AnalysisData {
+  [yearMonth: string]: {
+    [diseaseName: string]: number;
+  };
+}
+// export const data = {
+ 
+// };
 
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
 
 export default function Annalysis() {
+  const [chartData, setChartData] = useState({
+    labels: [],
+    plugins: {
+      legend: {
+        position: "top",
+      },
+    },
+    title: {
+      display: true,
+      text: "Chart.js Pie Chart",
+    },
+  
+    datasets: [
+      {
+        label: "Diseases",
+        data: [],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+          // Add more colors if needed
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(255, 159, 64, 1)",
+          // Add more colors if needed
+        ],
+        borderWidth: 1,
+      },
+    ],
+  }
+  
+  )
+  useEffect(() => {
+    fetch("http://localhost:8080/api/annalysis")
+      .then((response) => response.json())
+      .then((data: AnalysisData) => {
+        const labels: string[] = [];
+        const datasetsData: number[] = [];
+
+        // Loop through each year-month
+        for (const yearMonth in data) {
+          if (Object.prototype.hasOwnProperty.call(data, yearMonth)) {
+            const diseases = data[yearMonth];
+            // Loop through each disease in the year-month
+            for (const diseaseName in diseases) {
+              if (Object.prototype.hasOwnProperty.call(diseases, diseaseName)) {
+                labels.push(diseaseName);
+                datasetsData.push(diseases[diseaseName]);
+              }
+            }
+          }
+        }
+        setChartData({
+          ...chartData,
+          labels: labels,
+          datasets: [
+            {
+              ...chartData.datasets[0],
+              data: datasetsData,
+            },
+          ],
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  
   return (
     <>
     <div  className="flex m-0 p-0  mb-16 space-x-0  border border-solid border-blue font-Montserrat md:flex-row  gap-4 w-full h-full  px-6 py-3 border-none shadow-none  flex-col">
@@ -88,7 +141,7 @@ export default function Annalysis() {
            grid place-items-center px-2"
       >
         <div>desease data </div>
-        <Pie data={data} />;
+        <Pie data={chartData} />;
       </CardBody>
     </div>
     </>

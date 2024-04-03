@@ -212,7 +212,7 @@ export const useAuthStore:UseBoundStore<StoreApi<AuthState>> = create<AuthState>
           verify
         );
         const { id, name, message, role, token } = res.data;
-        console.log(res.status);
+     
         if (res.status == 200) {
           set({
             isAuthenticated: true,

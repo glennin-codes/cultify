@@ -35,7 +35,7 @@ const navigate=useNavigate();
   }
   const handleUpload = async () => {
     const id=localStorage.getItem('id');
-    console.log("clicked")
+    console.log({"clicked":id})
     if(id && image){
       const formData=new FormData();
     

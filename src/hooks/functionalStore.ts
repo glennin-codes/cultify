@@ -35,14 +35,15 @@ export const functionalStore=create<FunctionalStore>(
           return{
             ...initialFuntionState,
             upload:async(values)=>{
-                const url='http://127.0.0.1:5000/api/predict?id=65eef26bd763d784e34d7fe6'
+              const {formData,id}=values;
+                const url=`http://127.0.0.1:5000/api/predict?id=${id}`
                try {
                 set({
                     isLoading:true
 
                 })
                 const res=await axios.post(url,
-                    values.formData
+                    formData
                      )
                     
                    if(  res.status == 200){
