@@ -25,6 +25,7 @@ interface AnalysisData {
 
 
 export default function Annalysis() {
+  const [chartDataData,setChartDataData]=useState<AnalysisData>({})
   const [chartData, setChartData] = useState({
     labels: [],
     plugins: {
@@ -65,42 +66,103 @@ export default function Annalysis() {
   }
   
   )
+
   useEffect(() => {
     fetch("http://localhost:8080/api/annalysis")
       .then((response) => response.json())
       .then((data: AnalysisData) => {
-        const labels: string[] = [];
-        const datasetsData: number[] = [];
-
-        // Loop through each year-month
-        for (const yearMonth in data) {
-          if (Object.prototype.hasOwnProperty.call(data, yearMonth)) {
-            const diseases = data[yearMonth];
-            // Loop through each disease in the year-month
-            for (const diseaseName in diseases) {
-              if (Object.prototype.hasOwnProperty.call(diseases, diseaseName)) {
-                labels.push(diseaseName);
-                datasetsData.push(diseases[diseaseName]);
-              }
-            }
-          }
-        }
-        setChartData({
-          ...chartData,
-          labels: labels,
-          datasets: [
-            {
-              ...chartData.datasets[0],
-              data: datasetsData,
-            },
-          ],
-        });
+        // Store the fetched data
+        setChartDataData(data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
-  
+
+  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
+
+  const handleChangeYear = (year: string) => {
+    setSelectedYear(year);
+    setSelectedMonth(""); // Reset selected month
+  };
+
+  const handleChangeMonth = (month: string) => {
+    setSelectedMonth(month);
+  };
+
+  const filterChartData = () => {
+    const filteredData = chartDataData[selectedYear + "-" + selectedMonth];
+    if (filteredData) {
+      const labels: string[] = [];
+      const datasetsData: number[] = [];
+
+      for (const diseaseName in filteredData) {
+        if (Object.prototype.hasOwnProperty.call(filteredData, diseaseName)) {
+          labels.push(diseaseName);
+          datasetsData.push(filteredData[diseaseName]);
+        }
+      }
+
+      setChartData({
+        ...chartData,
+        labels: labels,
+        datasets: [
+          {
+            ...chartData.datasets[0],
+            data: datasetsData,
+          },
+        ],
+      });
+    } else {
+      // If no data is available for the selected year-month, reset chart data
+      setChartData({
+        ...chartData,
+        labels: [],
+        datasets: [
+          {
+            ...chartData.datasets[0],
+            data: [],
+          },
+        ],
+      });
+    }
+  };
+
+  // Fetch data
+  useEffect(() => {
+    fetch("http://localhost:8080/api/annalysis")
+      .then((response) => response.json())
+      .then((data: AnalysisData) => {
+        // Store the fetched data
+        setChartDataData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  // Extract years and months from fetched data
+  const [years, setYears] = useState<string[]>([]);
+  const [months, setMonths] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (chartDataData) {
+      const yearsSet: Set<string> = new Set();
+      const monthsSet: Set<string> = new Set();
+
+      for (const yearMonth in chartDataData) {
+        if (Object.prototype.hasOwnProperty.call(chartDataData, yearMonth)) {
+          const [year, month] = yearMonth.split("-");
+          yearsSet.add(year);
+          monthsSet.add(month);
+        }
+      }
+
+      setYears(Array.from(yearsSet).sort());
+      setMonths(Array.from(monthsSet).sort());
+    }
+  }, [chartDataData]);
   return (
     <>
     <div  className="flex m-0 p-0  mb-16 space-x-0  border border-solid border-blue font-Montserrat md:flex-row  gap-4 w-full h-full  px-6 py-3 border-none shadow-none  flex-col">
@@ -141,6 +203,25 @@ export default function Annalysis() {
            grid place-items-center px-2"
       >
         <div>desease data </div>
+        <div>
+        <select value={selectedYear} onChange={(e) => handleChangeYear(e.target.value)}>
+          <option value="">Select Year</option>
+          {years.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+        <select value={selectedMonth} onChange={(e) => handleChangeMonth(e.target.value)}>
+          <option value="">Select Month</option>
+          {months.map((month) => (
+            <option key={month} value={month}>
+              {month}
+            </option>
+          ))}
+        </select>
+        <button onClick={filterChartData}>Apply Filter</button>
+      </div>
         <Pie data={chartData} />;
       </CardBody>
     </div>
