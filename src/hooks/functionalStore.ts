@@ -48,13 +48,20 @@ export const functionalStore=create<FunctionalStore>(
                     
                    if(  res.status == 200){
                     const {result,prediction,message}=res.data;
-                    console.log("result",result)
-                    console.log(res.data);
+                    // console.log("result",result)
+                    // console.log(res.data);
+                    let extractedResult;
+
+                    if (Array.isArray(result) && result.length > 0) {
+                        extractedResult = result[0];
+                    } else {
+                        extractedResult = result;
+                    }
                        set(
                         {
                             isLoading:false,
                             success:message,
-                            result:result[0],
+                            result:extractedResult,
                             disease:prediction,
                             error:''
                         }

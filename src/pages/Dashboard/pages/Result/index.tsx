@@ -80,7 +80,7 @@ export const Result = () => {
             },
             `${
               result?.content
-                ? result?.content
+                ? result?.content + " " + " Link below this result box ."
                 : "You have not uploaded any image for a detection please do so then navigate to this page"
             }`,
 
@@ -144,7 +144,7 @@ export const Result = () => {
                     : "You have not uploaded any image for a detection please do so then navigate to this page"
                 }`,
                 (el) => {
-                  setTypingStatus("Done Typing");
+                 
                   el?.classList.remove(CURSOR_CLASS_NAME);
                 },
                 100,
