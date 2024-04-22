@@ -1,8 +1,20 @@
 import axios from "axios";
 import { StoreApi, UseBoundStore, create } from "zustand";
+type users={
+    firstName:string,
+    lastName:string,
+    createdAt:string
+    predictions:[],
+    email:string,
+    location:string,
+    phoneNumber:string,
+    password:string,
+    _id:string,
+
+}
 interface GetUserState{
     getUsers:()=>Promise<void>;
-    Users:[] | null;
+    Users: users[] | null;
     isLoading:boolean;
     error:string;
     success:string;

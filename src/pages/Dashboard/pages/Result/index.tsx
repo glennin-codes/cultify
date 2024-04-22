@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import Typewriter from "typewriter-effect";
 import { functionalStore } from "../../../../hooks/functionalStore";
-import Modal from "../../../../components/modal/Modal";
+import Modal from "../../../../components/modal/LogoutModal";
 
 export const Result = () => {
   const CURSOR_CLASS_NAME = "custom-type-animation-cursor";

@@ -6,6 +6,8 @@ export type UserData = {
   firstName: string;
   lastName: string;
   location:string;
+  id:string,
+  password:string
 };
 type UpdateValues={
     email: string;
@@ -13,7 +15,7 @@ type UpdateValues={
     firstName: string;
     lastName: string;
     id:string
-    location:string
+    location:string,
 }
 
 interface UserProfile {
@@ -49,8 +51,8 @@ export const ProfileUserStore: UseBoundStore<StoreApi<UserProfile>> = create<Use
 
                 if ((await res).status == 200) {
                 const data = (await res).data;
-                console.log({data});
-                const { email, phoneNumber, firstName, lastName ,location} = data;
+              
+                const { email, phoneNumber, firstName, lastName ,location,_id,password} = data;
                 set({
                     isLoading: false,
                     
@@ -59,7 +61,10 @@ export const ProfileUserStore: UseBoundStore<StoreApi<UserProfile>> = create<Use
                       phoneNumber,
                       firstName,
                       lastName,
-                      location
+                      location,
+                      password,
+                      id:_id
+
                     },
                     error: "",
                 });
@@ -79,7 +84,7 @@ export const ProfileUserStore: UseBoundStore<StoreApi<UserProfile>> = create<Use
                 } else if (status === 500) {
                     set({
                     error:
-                        message || "Internal Server Error , Please Try Again Later",
+                       "Internal Server Error , Please Try Again Later",
                     });
                 } else if (status === 403) {
                     set({

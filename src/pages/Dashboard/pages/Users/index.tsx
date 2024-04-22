@@ -8,10 +8,12 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { UseGetUserStore } from "../../../../hooks/getUsersHooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { formatDateString } from "./helper/date";
 import { mostFrequentDiseaseName } from "./helper/mostFrequent";
 import { BsFillExclamationOctagonFill } from "react-icons/bs";
+import { UserData } from "../../../../hooks/ProfileUserStore";
+import { EditUserModal } from "../../../../components/modal/EditUserModal";
 const TABLE_HEAD = [
   "Name",
   "PhoneNumber",
@@ -57,18 +59,43 @@ const TABLE_HEAD = [
 
 function AllUsers() {
   const { getUsers, Users, isLoading, error, success } = UseGetUserStore();
-
+const [data,setData]=useState({
+  firstName:'',
+  lastName:'',
+  phoneNumber: '',
+  email:'',
+  location:'',
+  password:'',
+  id:''
+});
   useEffect(() => {
     getUsers();
   }, []);
-
+  const [open, setOpen] = useState(false);
   console.log(Users);
   console.log(error);
   console.log(success);
   const isLast = (index: number) => {
     return index === (Users?.length ?? 1) - 1;
   };
+const getDataAndEdit=(user:UserData)=>{
+ setData(user);
+setOpen(true);
+}
 
+const handleClose = ()=>{
+  setData({
+    firstName:'',
+    lastName:'',
+    phoneNumber: '',
+    email:'',
+    location:'',
+    password:'',
+    id:''
+  });
+  setOpen(false);
+  
+}
   return (
     <div className="h-full w-screen  md:w-full  py-6 px-8 overflow-x-auto">
       <table className="w-full table-auto text-left ">
@@ -106,10 +133,14 @@ function AllUsers() {
                 {
                   firstName,
                   lastName,
-                  phoneNumber,
+                  phoneNumber = "",
                   createdAt,
                   email,
                   predictions,
+                  location,
+                  password,
+                  _id
+
                 },
                 index
               ) => {
@@ -236,7 +267,11 @@ function AllUsers() {
 
                     <td className={classes}>
                       <Tooltip content="Edit User">
-                        <IconButton variant="text">
+                        <IconButton onClick={()=>{
+                          getDataAndEdit({
+                            firstName,lastName,location,email,phoneNumber ,id:_id,password
+                          })
+                        }}  variant="text">
                           <PencilIcon className="h-4 w-4" />
                         </IconButton>
                       </Tooltip>
@@ -268,6 +303,7 @@ function AllUsers() {
           </Button>
         </div>
       </CardFooter>
+      <EditUserModal isOpen={open} setValues={setData} onClose={handleClose} values={data}  />
     </div>
   );
 }
