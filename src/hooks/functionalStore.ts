@@ -48,6 +48,7 @@ export const functionalStore=create<FunctionalStore>(
                     
                    if(  res.status == 200){
                     const {result,prediction,message}=res.data;
+                    console.log("result",result)
                     console.log(res.data);
                        set(
                         {

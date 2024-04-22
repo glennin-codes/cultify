@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { UserData } from "../../hooks/ProfileUserStore";
 import { BiLoaderAlt } from "react-icons/bi";
+import { UpdateUserStore } from "../../hooks/UpdateUserStore";
+import { Alert } from "@material-tailwind/react";
 
 interface Props {
   isOpen: boolean;
@@ -13,7 +15,13 @@ export const EditUserModal = ({
   onClose,
   values,
   setValues,
+
 }: Props) => {
+  const {updateUserData,resetStates,success,isLoading,error}=UpdateUserStore();
+  useEffect(()=>{
+    resetStates();
+  },[]);
+const [updateValues,setUpdateValues]=useState<Partial<UserData>>({})
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -31,12 +39,31 @@ export const EditUserModal = ({
       document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [isOpen, onClose]);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value,
-    });
-  };
+
+ 
+
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const {name,value}=e.target;
+  setUpdateValues({ ...updateValues, [name]: value });
+  setValues({ ...values, [name]: value });
+};
+const handleSubmit=(e:FormEvent)=>{
+
+  e.preventDefault();
+  const missedData={
+    ...updateValues,
+    id:values.id
+  }
+   updateUserData(missedData);
+  }
+
+useEffect(()=>{
+  if(success){
+    onClose();
+  }
+
+},[success]);
+console.log({success})
   return (
     <>
       {isOpen && (
@@ -46,7 +73,8 @@ export const EditUserModal = ({
             className="fixed inset-0 bg-black opacity-50 transitional-opacity"
           ></div>
           <div className="fixed bg-white md:p-4  p-8 md:max-w-[500px] rounded-md  w-full rounded-md shadow-md">
-            <form className="flex flex-col space-y-2 text-sm md:text-base w-full mt-2 md:mb-8">
+           {error && <Alert className=" border-solid border-l-4 border-[#EF4444] bg-red-500/20 text-white p-2 rounded text-center font-medium text-red-500">{error}</Alert>}
+            <form  onSubmit={handleSubmit} className="flex flex-col space-y-2 text-sm md:text-base w-full mt-2 md:mb-8">
               <h2 className="text-center text-2xl font-semibold text-gray-500 ">
                 Update user {values.firstName + " " + values.lastName}
               </h2>
@@ -137,7 +165,7 @@ export const EditUserModal = ({
                     <input
                       onChange={handleChange}
                       value={values.password}
-                      name="location"
+                      name="password"
                       className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-600 border-slate-300 hover:border-slate-400`}
                     />
                   </>
@@ -154,9 +182,10 @@ export const EditUserModal = ({
                   </button>
                   <button
                     type="submit"
+                   
                     className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none"
                   >
-                 {values ? (
+                 {isLoading ? (
                 <span className="flex flex-row items-center ">
                   <BiLoaderAlt className="animate-spin text-magenta h-6 w-8" />
                   <div className="ml-2 text-lg text-green-400">Updating...</div>

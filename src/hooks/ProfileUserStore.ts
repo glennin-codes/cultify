@@ -181,9 +181,11 @@ export const ProfileUserStore: UseBoundStore<StoreApi<UserProfile>> = create<Use
             
          } ,
         resetStates:()=>{
-          set({    isLoading: false,
+          set({   
+             isLoading: false,
             error: "",
-            success: "", });
+            success: "",
+           });
         }
 
     };

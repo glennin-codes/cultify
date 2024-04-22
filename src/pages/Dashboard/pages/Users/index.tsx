@@ -6,6 +6,7 @@ import {
   Button,
   Tooltip,
   IconButton,
+  Alert,
 } from "@material-tailwind/react";
 import { UseGetUserStore } from "../../../../hooks/getUsersHooks";
 import { useEffect, useState } from "react";
@@ -14,6 +15,7 @@ import { mostFrequentDiseaseName } from "./helper/mostFrequent";
 import { BsFillExclamationOctagonFill } from "react-icons/bs";
 import { UserData } from "../../../../hooks/ProfileUserStore";
 import { EditUserModal } from "../../../../components/modal/EditUserModal";
+import { UpdateUserStore } from "../../../../hooks/UpdateUserStore";
 const TABLE_HEAD = [
   "Name",
   "PhoneNumber",
@@ -58,7 +60,8 @@ const TABLE_HEAD = [
 // ];
 
 function AllUsers() {
-  const { getUsers, Users, isLoading, error, success } = UseGetUserStore();
+  const { getUsers, Users, isLoading,error} = UseGetUserStore();
+  const { success,resetStates} = UpdateUserStore();
 const [data,setData]=useState({
   firstName:'',
   lastName:'',
@@ -70,11 +73,10 @@ const [data,setData]=useState({
 });
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [success]);
+  
   const [open, setOpen] = useState(false);
-  console.log(Users);
-  console.log(error);
-  console.log(success);
+ 
   const isLast = (index: number) => {
     return index === (Users?.length ?? 1) - 1;
   };
@@ -96,8 +98,12 @@ const handleClose = ()=>{
   setOpen(false);
   
 }
+const closeAlert=()=>{
+resetStates();
+}
   return (
     <div className="h-full w-screen  md:w-full  py-6 px-8 overflow-x-auto">
+     {success&&  <Alert open={success?true:false} onClose={closeAlert} className="rounded-none border-solid border-l-4 border-[#2ec946] bg-[#2ec946]/10 ] text-center font-medium text-[#2ec946]" >{success}</Alert>}
       <table className="w-full table-auto text-left ">
         <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
           User Management and Prediction Overview

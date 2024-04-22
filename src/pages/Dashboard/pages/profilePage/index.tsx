@@ -92,14 +92,12 @@ function Profile() {
   return (
     <>
       {successMessage && (
-        <Alert open={open} onClose={handleClose} color="green">
-          {successMessage}
-        </Alert>
+        
+         <Alert open={open} onClose={handleClose}   className="rounded-none border-solid border-l-4 border-[#2ec946] bg-[#2ec946]/10 ] text-center font-medium text-[#2ec946]" >{successMessage}</Alert>
       )}
       {errorMessage && (
-        <Alert open={open} onClose={handleClose} color="red">
-          {errorMessage}
-        </Alert>
+       
+        <Alert  open={open} onClose={handleClose} className=" border-solid border-l-4 border-[#EF4444] bg-red-500/20 text-white  rounded text-center font-medium text-red-500">{errorMessage}</Alert>
       )}
       {userValues ? (
         <div className="px-8">
