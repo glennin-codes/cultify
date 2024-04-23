@@ -35,7 +35,7 @@ export type DeleteUser = {
 };
 
 function AllUsers() {
-  const { getUsers, Users, isLoading, error } = UseGetUserStore();
+  const { getUsers, Users, isLoading, error,resetUserState } = UseGetUserStore();
   const { success, resetStates } = UpdateUserStore();
   const { deleteSucess, deleteError, resetDeleteStates } = DeleteUserStore();
   const [data, setData] = useState({
@@ -79,9 +79,11 @@ function AllUsers() {
     setOpen(false);
   };
   const closeAlert = () => {
-    if (success || error) {
+    if (success || error ) {
       resetStates();
+      resetUserState();
     }
+
     if (deleteSucess || deleteError) {
       resetDeleteStates();
     }

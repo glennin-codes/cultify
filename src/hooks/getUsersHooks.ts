@@ -18,7 +18,7 @@ interface GetUserState{
     isLoading:boolean;
     error:string;
     success:string;
-    resetState:()=>void;
+    resetUserState:()=>void;
 }
 
 export const UseGetUserStore: UseBoundStore<StoreApi<GetUserState>>=create<GetUserState>((set)=>{
@@ -90,8 +90,10 @@ export const UseGetUserStore: UseBoundStore<StoreApi<GetUserState>>=create<GetUs
             }
         },
 
-        resetState: () => {
-            set({ ...initialState });
+        resetUserState: () => {
+            set({ success:'',
+            error:'',
+            isLoading:false });
           }
 
     }
