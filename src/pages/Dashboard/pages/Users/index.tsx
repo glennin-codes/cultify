@@ -17,6 +17,7 @@ import { UserData } from "../../../../hooks/ProfileUserStore";
 import { EditUserModal } from "../../../../components/modal/EditUserModal";
 import { UpdateUserStore } from "../../../../hooks/UpdateUserStore";
 import { DeleteModal } from "../../../../components/modal/deleteActionModal";
+import { DeleteUserStore } from "../../../../hooks/DeleteUserStore";
 const TABLE_HEAD = [
   "Name",
   "PhoneNumber",
@@ -28,14 +29,15 @@ const TABLE_HEAD = [
   " ",
 ];
 
-export type DeleteUser={
+export type DeleteUser = {
   name: string;
   id: string;
-}
+};
 
 function AllUsers() {
   const { getUsers, Users, isLoading, error } = UseGetUserStore();
   const { success, resetStates } = UpdateUserStore();
+  const { deleteSucess, deleteError, resetDeleteStates } = DeleteUserStore();
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -47,7 +49,7 @@ function AllUsers() {
   });
   useEffect(() => {
     getUsers();
-  }, [success]);
+  }, [success, deleteSucess]);
 
   const [open, setOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -77,12 +79,17 @@ function AllUsers() {
     setOpen(false);
   };
   const closeAlert = () => {
-    resetStates();
+    if (success || error) {
+      resetStates();
+    }
+    if (deleteSucess || deleteError) {
+      resetDeleteStates();
+    }
   };
   const handleCloseModal = () => {
     setDeleteModalOpen(false);
   };
-  const handleDelete = (deleteUser:DeleteUser) => {
+  const handleDelete = (deleteUser: DeleteUser) => {
     setDeleteUser(deleteUser);
     setDeleteModalOpen(true);
   };
@@ -96,6 +103,33 @@ function AllUsers() {
             className="rounded-none border-solid border-l-4 border-[#2ec946] bg-[#2ec946]/10 ] text-center font-medium text-[#2ec946]"
           >
             {success}
+          </Alert>
+        )}
+        {deleteSucess && (
+          <Alert
+            open={deleteSucess ? true : false}
+            onClose={closeAlert}
+            className="rounded-none border-solid border-l-4 border-[#2ec946] bg-[#2ec946]/10 ] text-center font-medium text-[#2ec946]"
+          >
+            {deleteSucess}
+          </Alert>
+        )}
+        {error && (
+          <Alert
+            open={error ? true : false}
+            onClose={closeAlert}
+            className=" border-solid border-l-4 border-[#EF4444] bg-red-500/20 text-white p-2 rounded text-center font-medium text-red-500"
+          >
+            {error}
+          </Alert>
+        )}
+        {deleteError && (
+          <Alert
+            open={deleteError ? true : false}
+            onClose={closeAlert}
+            className=" border-solid border-l-4 border-[#EF4444] bg-red-500/20 text-white p-2 rounded text-center font-medium text-red-500"
+          >
+            {deleteError}
           </Alert>
         )}
         <table className="w-full table-auto text-left ">
@@ -291,7 +325,10 @@ function AllUsers() {
                           <IconButton
                             className="bg-red-500 text-white px-3 py-2 rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
                             onClick={() => {
-                              handleDelete({name:firstName + " " + lastName , id: _id});
+                              handleDelete({
+                                name: firstName + " " + lastName,
+                                id: _id,
+                              });
                             }}
                             variant="text"
                           >

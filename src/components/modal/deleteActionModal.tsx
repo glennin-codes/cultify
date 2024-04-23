@@ -1,3 +1,4 @@
+import { DeleteUserStore } from "../../hooks/DeleteUserStore";
 import { DeleteUser } from "../../pages/Dashboard/pages/Users";
 
 interface Props{
@@ -6,9 +7,9 @@ interface Props{
     handleCloseModal:()=>void
 }
 export const DeleteModal = (props:Props) => {
-  
+  const {userDelete}=DeleteUserStore()
   const handleDelete = () => {
-    // Call onDelete function passed from parent component
+   userDelete(props.user.id,props.user.name);
    props.handleCloseModal(); // Close the modal after deleting
   };
 
