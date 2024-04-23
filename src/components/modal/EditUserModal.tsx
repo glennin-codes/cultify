@@ -21,6 +21,7 @@ export const EditUserModal = ({
   useEffect(()=>{
     resetStates();
   },[]);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 const [updateValues,setUpdateValues]=useState<Partial<UserData>>({})
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
@@ -52,7 +53,8 @@ const handleSubmit=(e:FormEvent)=>{
   e.preventDefault();
   const missedData={
     ...updateValues,
-    id:values.id
+    id:values.id,
+    makeAdmin: isAdmin,
   }
    updateUserData(missedData);
   }
@@ -63,7 +65,12 @@ useEffect(()=>{
   }
 
 },[success]);
-console.log({success})
+// Handle checkbox change
+const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setIsAdmin(e.target.checked);
+ 
+};
+
   return (
     <>
       {isOpen && (
@@ -171,6 +178,22 @@ console.log({success})
                   </>
                 </div>
               </div>
+
+                {/* Make Admin Checkbox */}
+                <div className="flex justify-center items-center mt-4 cursor-pointer   ">
+                <input
+                  type="checkbox"
+                  id="isAdmin"
+                  checked={isAdmin}
+                  onChange={handleCheckboxChange}
+                  className="mr-2 p-2  cursor-pointer"
+                />
+                <label htmlFor="isAdmin" className="text-sm text-gray-700 cursor-pointer outline-none ">
+                  Make Admin
+                </label>
+              </div>
+
+
               <div className=" flex flex-col items-center w-full">
                 <div className="mt-4 flex justify-between w-full max-w-sm">
                   <button
@@ -188,7 +211,8 @@ console.log({success})
                  {isLoading ? (
                 <span className="flex flex-row items-center ">
                   <BiLoaderAlt className="animate-spin text-magenta h-6 w-8" />
-                  <div className="ml-2 text-lg text-green-400">Updating...</div>
+                  <div className="ml-2 text-lg text-green-400">Updating...</
+div>
                 </span>
               ) : (
                 "Save Changes"
