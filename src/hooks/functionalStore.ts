@@ -77,7 +77,7 @@ export const functionalStore=create<FunctionalStore>(
                     set({ error: message });
                   } else if (status === 404) {
                     // Handle Not Found Error (status code 404)
-                    console.error("Conflict Error:", message);
+                    console.error("not found:", message);
                     set({ error: message });
                   } else if (status === 400) {
                     // Handle Not Found Error (status code 404)

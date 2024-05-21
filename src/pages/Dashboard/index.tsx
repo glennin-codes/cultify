@@ -32,6 +32,8 @@ import { useNavigate } from "react-router-dom";
 import AllUsers from "./pages/Users";
 import { AiOutlinePieChart } from "react-icons/ai";
 import Annalysis from "../Annalysis";
+import AgrovetList from "./pages/Agrovets";
+import useAgrovetsStore from "../../hooks/AgrovetsStore";
 
 
 type SidebarItem = {
@@ -62,7 +64,7 @@ const nonAccordionItems: SidebarItem[] = [
   {
     id: 6,
     label: "Annalysis",
-    icon:<AiOutlinePieChart className="h-5 w-5" />
+    icon: <AiOutlinePieChart className="h-5 w-5" />
 
 
 
@@ -84,10 +86,18 @@ function SidebarWithContentSeparator() {
   const [open, setOpen] = useState<number>(0);
   const [selectedContent, setSelectedContent] = useState(<InputForm />);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const {  disease } = functionalStore();
+  const { disease } = functionalStore();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { logout ,loadLocalStorage,activeUser} = useAuthStore();
+  const { logout, loadLocalStorage, activeUser } = useAuthStore();
+
+  const {
+    agrovets,
+    successMessage
+  } = useAgrovetsStore((state) => ({
+    agrovets: state.agrovets,
+   successMessage:state.successMessage
+  }));
   const handleLogout = () => {
     // Perform logout logic here
     console.log("Logging out...");
@@ -113,6 +123,16 @@ function SidebarWithContentSeparator() {
       });
     }
   }, [disease]);
+  useEffect(() => {
+    if(agrovets && agrovets.length > 0){
+      setSelectedContent(< AgrovetList />);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    
+    }
+  }, [agrovets])
 
   const handleOpen = (value: number) => {
     setOpen((prevOpen) => (prevOpen === value ? 0 : value));
@@ -146,9 +166,9 @@ function SidebarWithContentSeparator() {
       case "Users":
         setSelectedContent(<AllUsers />);
         break;
-      case "Annalysis" :
+      case "Annalysis":
         setSelectedContent(<Annalysis />);
-        break; 
+        break;
       case "Log Out":
         setSelectedContent(<InputForm />);
         setIsLogoutModalOpen(true);
@@ -174,9 +194,8 @@ function SidebarWithContentSeparator() {
       <button
         onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
         id="menu-btn"
-        className={`block hamburger md2:hidden  left-5 focus:outline-none  ${
-          isMobileMenuOpen ? "open" : ""
-        }`}
+        className={`block hamburger md2:hidden  left-5 focus:outline-none  ${isMobileMenuOpen ? "open" : ""
+          }`}
       >
         <span
           style={{ backgroundColor: "green" }}
@@ -192,12 +211,11 @@ function SidebarWithContentSeparator() {
         ></span>
       </button>
       <div
-        className={`${
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } md2:translate-x-0   transition-transform  duration-300 ease-in-out md2:duration-0 md2:ease-in-out h-[calc(100vh-2rem)] bg-white w-full max-w-[20rem] p-4  fixed md2:static  mt-5`}
+        className={`${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          } md2:translate-x-0   transition-transform  duration-300 ease-in-out md2:duration-0 md2:ease-in-out h-[calc(100vh-2rem)] bg-white w-full max-w-[20rem] p-4  fixed md2:static  mt-5`}
       >
         <div className=" mb-2 p-4">
-          <Typography variant="h5">Welcome {activeUser?.role==="admin"?'Admin':'User'} {activeUser?.name} </Typography>
+          <Typography variant="h5">Welcome {activeUser?.role === "admin" ? 'Admin' : 'User'} {activeUser?.name} </Typography>
         </div>
         <List>
           {accordionItems.map((item) => (
@@ -207,9 +225,8 @@ function SidebarWithContentSeparator() {
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === item.id ? "rotate-180" : ""
-                  }`}
+                  className={`mx-auto h-4 w-4 transition-transform ${open === item.id ? "rotate-180" : ""
+                    }`}
                 />
               }
             >
@@ -249,16 +266,16 @@ function SidebarWithContentSeparator() {
           ))}
           <hr className="my-2 border-blue-gray-50 " />
           {nonAccordionItems.map((item) => (
-           
-             ( activeUser?.role !== 'admin' && (item.label === 'Users')) ? null :
-            <ListItem
-              className=""
-              onClick={() => handleItemClick(item.label)}
-              key={item.id}
-            >
-              <ListItemPrefix>{item.icon}</ListItemPrefix>
-              {item.label}
-            </ListItem>
+
+            (activeUser?.role !== 'admin' && (item.label === 'Users')) ? null :
+              <ListItem
+                className=""
+                onClick={() => handleItemClick(item.label)}
+                key={item.id}
+              >
+                <ListItemPrefix>{item.icon}</ListItemPrefix>
+                {item.label}
+              </ListItem>
           ))}
         </List>
       </div>

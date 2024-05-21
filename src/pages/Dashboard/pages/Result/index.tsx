@@ -15,6 +15,10 @@ import TomatoTargetSpot from "../../../../Docs/TomatoTargetSpot.mdx";
 import TomatotomatoMosaicVirus from "../../../../Docs/TomatotomatoMosaicVirus.mdx";
 import TomatotomatoYellowLeafCurlVirus from "../../../../Docs/TomatotomatoYellowLeafCurlVirus.mdx";
 import { normalizeDiseaseName } from "../../../../helpers/NormaliseDeseaseNames";
+import Button from "../../../../components/ui-components/LocationButton";
+import LocationButton from "../../../../components/ui-components/LocationButton";
+import { Alert } from "@material-tailwind/react";
+import useAgrovetsStore from "../../../../hooks/AgrovetsStore";
 
 
 const diseaseComponents = {
@@ -34,11 +38,16 @@ export const Result = () => {
   const CURSOR_CLASS_NAME = "custom-type-animation-cursor";
   const [typingStatus, setTypingStatus] = useState("Initializing");
   const [modalOpen, setModalOpen] = useState(false);
-
-  const {  disease } = functionalStore();
  
-
-
+  const {  disease } = functionalStore();
+ const {error}=useAgrovetsStore();
+ const [open,setOpen]=useState(error?true:false);
+ useEffect(()=>{
+   if(error){
+    setOpen(true)
+   }
+ },[error]);
+console.log({error});
   const openModal = () => {
     setModalOpen(true);
   };
@@ -97,7 +106,25 @@ export const Result = () => {
   </MDXProvider>
       </div>
     
-
+{disease && (
+  <div className=" mt-8 flex-start">
+  <LocationButton />
+  </div>
+)}
+     
+     {error && (
+       <Alert 
+       open={open}
+       variant="outlined"
+       onClose={() => setOpen(false)}
+       animate={{
+         mount: { y: -10 },
+         unmount: { y: 100 },
+       }}
+       className="text-[#FF0000] border border-[#FF0000]">
+       {error}
+    </Alert>
+     )}
     
        
         <Modal
