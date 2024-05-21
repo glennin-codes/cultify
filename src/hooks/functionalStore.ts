@@ -16,7 +16,7 @@ type Result={
     isLoading: boolean;
     error: string;
     success: string ;
-    result:Result | null ;
+   
     disease:string;
     
 
@@ -47,21 +47,14 @@ export const functionalStore=create<FunctionalStore>(
                      )
                     
                    if(  res.status == 200){
-                    const {result,prediction,message}=res.data;
-                    // console.log("result",result)
-                    // console.log(res.data);
-                    let extractedResult;
-
-                    if (Array.isArray(result) && result.length > 0) {
-                        extractedResult = result[0];
-                    } else {
-                        extractedResult = result;
-                    }
+                    const {prediction,message}=res.data;
+                 
+                  
                        set(
                         {
                             isLoading:false,
                             success:message,
-                            result:extractedResult,
+                         
                             disease:prediction,
                             error:''
                         }

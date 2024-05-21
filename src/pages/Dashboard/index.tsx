@@ -84,7 +84,7 @@ function SidebarWithContentSeparator() {
   const [open, setOpen] = useState<number>(0);
   const [selectedContent, setSelectedContent] = useState(<InputForm />);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const {  result } = functionalStore();
+  const {  disease } = functionalStore();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const navigate = useNavigate();
   const { logout ,loadLocalStorage,activeUser} = useAuthStore();
@@ -105,14 +105,14 @@ function SidebarWithContentSeparator() {
   };
 
   useEffect(() => {
-    if (result) {
+    if (disease) {
       setSelectedContent(<Result />);
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
     }
-  }, [result]);
+  }, [disease]);
 
   const handleOpen = (value: number) => {
     setOpen((prevOpen) => (prevOpen === value ? 0 : value));

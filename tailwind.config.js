@@ -57,7 +57,7 @@ export default withMT({
   },
 
   plugins: [
-    
+    require('@tailwindcss/typography'),
   ],
 })
 
