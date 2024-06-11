@@ -11,12 +11,13 @@ type Result={
     content:string
 }
 
+
  interface FunctionalStore{
     upload:(values:uploads)=>Promise<void>;
     isLoading: boolean;
     error: string;
     success: string ;
-   
+   setClear:()=>void;
     disease:string;
     
 
@@ -34,6 +35,7 @@ export const functionalStore=create<FunctionalStore>(
           };
           return{
             ...initialFuntionState,
+            setClear:()=> set({...initialFuntionState}),
             upload:async(values)=>{
               const {formData,id}=values;
                 const url=`http://127.0.0.1:5000/api/predict?id=${id}`

@@ -86,7 +86,7 @@ function SidebarWithContentSeparator() {
   const [open, setOpen] = useState<number>(0);
   const [selectedContent, setSelectedContent] = useState(<InputForm />);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const { disease } = functionalStore();
+  const { disease ,setClear} = functionalStore();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const navigate = useNavigate();
   const { logout, loadLocalStorage, activeUser } = useAuthStore();
@@ -99,8 +99,10 @@ function SidebarWithContentSeparator() {
    successMessage:state.successMessage
   }));
   const handleLogout = () => {
+   
+    //clearing the result store 
+   setClear();
     // Perform logout logic here
-    console.log("Logging out...");
     logout();
 
     // Close the modal
